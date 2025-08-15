@@ -1,6 +1,6 @@
 <h2 align="center">
   Saharsh Kumar - Portfolio<br/>
-  <a href="#" target="_blank">saharshkmr.vercel.app</a>
+  <a href="#" target="_blank">https://saharshkmr.github.io/portfolio/</a>
 <!-- </h2>
 <div align="center">
   <img alt="Demo" src="./Images/readme-img1.png" />
