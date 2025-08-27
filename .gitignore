@@ -19,6 +19,9 @@
 .env.test.local
 .env.production.local
 
+# Photoshop files
+*.psd
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { CgCPlusPlus } from "react-icons/cg";
 import {
   DiJavascript1,
@@ -19,47 +19,38 @@ import {
 } from "react-icons/si";
 
 function Techstack() {
+  const techStack = [
+    { icon: <CgCPlusPlus />, name: "C++" },
+    { icon: <DiJavascript1 />, name: "JavaScript" },
+    { icon: <DiNodejs />, name: "Node.js" },
+    { icon: <DiReact />, name: "React" },
+    { icon: <DiGit />, name: "Git" },
+    { icon: <SiFirebase />, name: "Firebase" },
+    { icon: <SiMysql />, name: "MySQL" },
+    { icon: <DiPython />, name: "Python" },
+    { icon: <DiJava />, name: "Java" },
+    { icon: <DiPhp />, name: "PHP" },
+    { icon: <DiDart />, name: "Dart" },
+    { icon: <SiXampp />, name: "XAMPP" },
+    { icon: <SiPhpmyadmin />, name: "phpMyAdmin" }
+  ];
+
   return (
     <Row style={{ justifyContent: "center", paddingBottom: "50px" }}>
-      <Col xs={4} md={2} className="tech-icons">
-        <CgCPlusPlus />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <DiJavascript1 />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <DiNodejs />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <DiReact />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <DiGit />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <SiFirebase />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <SiMysql />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <DiPython />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <DiJava />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <DiPhp />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <DiDart />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <SiXampp />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <SiPhpmyadmin />
-      </Col>
+      {techStack.map((tech, index) => (
+        <Col key={index} xs={4} md={2} className="tech-icons">
+          <OverlayTrigger
+            placement="top"
+            overlay={
+              <Tooltip id={`tooltip-${index}`}>
+                {tech.name}
+              </Tooltip>
+            }
+          >
+            <div>{tech.icon}</div>
+          </OverlayTrigger>
+        </Col>
+      ))}
     </Row>
   );
 }

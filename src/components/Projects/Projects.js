@@ -1,96 +1,172 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import ProjectCard from "./ProjectCards";
 import Particle from "../Particle";
-import leaf from "../../Assets/Projects/leaf.png";
-import emotion from "../../Assets/Projects/emotion.png";
-import editor from "../../Assets/Projects/codeEditor.png";
-import chatify from "../../Assets/Projects/chatify.png";
-import suicide from "../../Assets/Projects/suicide.png";
-import bitsOfCode from "../../Assets/Projects/blog.png";
+import sakhuwa from "../../Assets/Projects/sakhuwa.png";
+import llrbmsss from "../../Assets/Projects/llrbmsss.png";
+import nestern from "../../Assets/Projects/nestern.png";
+import sbualumninetwork from "../../Assets/Projects/sbualumninetwork.png";
+import taurusai from "../../Assets/Projects/taurusai.png";
+import solar from "../../Assets/Projects/solar.png";
+
+// Animation component
+const AnimatedSection = ({ children, delay = 0, style = {} }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
+  return (
+    <div 
+      ref={sectionRef}
+      style={{
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+        transition: `opacity 0.6s ease-out ${delay}s, transform 0.6s ease-out ${delay}s`,
+        ...style
+      }}
+    >
+      {children}
+    </div>
+  );
+};
 
 function Projects() {
   return (
     <Container fluid className="project-section">
       <Particle />
       <Container>
-        <h1 className="project-heading">
-          My Recent <strong className="purple">Works </strong>
-        </h1>
-        <p style={{ color: "white" }}>
-          Here are a few projects I've worked on recently.
-        </p>
-        {/* <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
+        <AnimatedSection delay={0.2}>
+          <h1 className="project-heading">
+            My Recent <strong className="purple">Works </strong>
+          </h1>
+        </AnimatedSection>
+        <AnimatedSection delay={0.4}>
+          <p style={{ color: "white", marginBottom: '30px' }}>
+            Here are a few projects I've worked on recently.
+          </p>
+        </AnimatedSection>
+        <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
           <Col md={4} className="project-card">
-            <ProjectCard
-              imgPath={chatify}
-              isBlog={false}
-              title="Chatify"
-              description="Personal Chat Room or Workspace to share resources and hangout with friends build with react.js, Material-UI, and Firebase. Have features which allows user for realtime messaging, image sharing as well as supports reactions on messages."
-              ghLink="https://github.com/soumyajit4419/Chatify"
-              demoLink="https://chatify-49.web.app/"
-            />
+            <AnimatedSection delay={0.4}>
+              <ProjectCard
+                imgPath={sakhuwa}
+                isBlog={false}
+                title="Sakhuwa"
+                description="A registered private non-profit organization dedicated to driving positive change in society. The foundation works across areas such as community development, education, healthcare, and social welfare, aiming to uplift underprivileged communities and create sustainable impact. Governed by a five-member board, Sakhuwa Foundation is committed to delivering grassroots solutions that empower individuals and foster inclusive growth."
+                // ghLink="https://github.com/soumyajit4419/Chatify"
+                demoLink="https://sakhuwa.org/"
+              />
+            </AnimatedSection>
           </Col>
 
           <Col md={4} className="project-card">
-            <ProjectCard
-              imgPath={bitsOfCode}
-              isBlog={false}
-              title="Bits-0f-C0de"
-              description="My personal blog page build with Next.js and Tailwind Css which takes the content from makdown files and renders it using Next.js. Supports dark mode and easy to write blogs using markdown."
-              ghLink="https://github.com/soumyajit4419/Bits-0f-C0de"
-              demoLink="https://blogs.soumya-jit.tech/"
-            />
+            <AnimatedSection delay={0.6}>
+              <ProjectCard
+                imgPath={llrbmsss}
+                isBlog={false}
+                title="LLRBMSS School"
+                description="A professional digital platform created to represent the school's identity and streamline communication with students, parents, and staff. It provides structured access to information such as announcements, events, and resources in a user-friendly format. The website enhances the school's online presence and strengthens engagement within the academic community."
+                // ghLink="https://github.com/soumyajit4419/Bits-0f-C0de"
+                demoLink="https://saharshkmr.github.io/llrsss_web/"
+              />
+            </AnimatedSection>
           </Col>
 
           <Col md={4} className="project-card">
-            <ProjectCard
-              imgPath={editor}
-              isBlog={false}
-              title="Editor.io"
-              description="Online code and markdown editor build with react.js. Online Editor which supports html, css, and js code with instant view of website. Online markdown editor for building README file which supports GFM, Custom Html tags with toolbar and instant preview.Both the editor supports auto save of work using Local Storage"
-              ghLink="https://github.com/soumyajit4419/Editor.io"
-              demoLink="https://editor.soumya-jit.tech/"              
-            />
+            <AnimatedSection delay={0.8}>
+              <ProjectCard
+                imgPath={nestern}
+                isBlog={false}
+                title="Nestern"
+                description="A career and internship platform that connects students with opportunities while enabling employers to post internships, jobs, and learning courses. It provides role-based access and real-time updates to ensure a seamless experience. The platform bridges the gap between learning and employment, empowering students to grow professionally."
+                ghLink="https://github.com/saharshkmr/nestern"
+                demoLink="https://nestern-1be70.web.app/"
+              />
+            </AnimatedSection>
           </Col>
 
           <Col md={4} className="project-card">
-            <ProjectCard
-              imgPath={leaf}
-              isBlog={false}
-              title="Plant AI"
-              description="Used the plant disease dataset from Kaggle and trained a image classifer model using 'PyTorch' framework using CNN and Transfer Learning with 38 classes of various plant leaves. The model was successfully able to detect diseased and healthy leaves of 14 unique plants. I was able to achieve an accuracy of 98% by using Resnet34 pretrained model."
-              ghLink="https://github.com/soumyajit4419/Plant_AI"
-              demoLink="https://plant49-ai.herokuapp.com/"
-            />
+            <AnimatedSection delay={0.4}>
+              <ProjectCard
+                imgPath={sbualumninetwork}
+                isBlog={false}
+                title="SBU Alumni Network"
+                description="A community-driven platform that bridges the gap between alumni, students, and faculty. It facilitates mentorship, networking, and collaboration while keeping members informed about events and opportunities. The platform strengthens alumni engagement and fosters long-term professional connections."
+                ghLink="https://github.com/saharshkmr/sbualumninet"
+                demoLink="https://sbualumninet.netlify.app/"
+              />
+            </AnimatedSection>
           </Col>
 
           <Col md={4} className="project-card">
-            <ProjectCard
-              imgPath={suicide}
-              isBlog={false}
-              title="Ai For Social Good"
-              description="Using 'Natural Launguage Processing' for the detection of suicide-related posts and user's suicide ideation in cyberspace  and thus helping in sucide prevention."
-              ghLink="https://github.com/soumyajit4419/AI_For_Social_Good"
-              // demoLink="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley" <--------Please include a demo link here
-            />
+            <AnimatedSection delay={0.6}>
+              <ProjectCard
+                imgPath={taurusai}
+                isBlog={false}
+                title="Taurus AI"
+                description="A career-focused platform that helps students and professionals access internships, job opportunities, and skill-building courses. It combines learning with practical exposure, guiding users to enhance their career prospects. The platform serves as a bridge between knowledge, experience, and employment."
+                // ghLink="https://github.com/soumyajit4419/AI_For_Social_Good"
+                demoLink="https://taurusai-bba31.web.app/"
+              />
+            </AnimatedSection>
           </Col>
 
           <Col md={4} className="project-card">
-            <ProjectCard
-              imgPath={emotion}
-              isBlog={false}
-              title="Face Recognition and Emotion Detection"
-              description="Trained a CNN classifier using 'FER-2013 dataset' with Keras and tensorflow backened. The classifier sucessfully predicted the various types of emotions of human. And the highest accuracy obtained with the model was 60.1%.
-              Then used Open-CV to detect the face in an image and then pass the face to the classifer to predict the emotion of a person."
-              ghLink="https://github.com/soumyajit4419/Face_And_Emotion_Detection"
-              // demoLink="https://blogs.soumya-jit.tech/"      <--------Please include a demo link here 
-            />
+            <AnimatedSection delay={0.8}>
+              <ProjectCard
+                imgPath={solar}
+                isBlog={false}
+                title="Solar System"
+                description="An interactive web experience that immerses users in our planetary neighborhood through dynamic navigation and detailed planetary facts. It presents celestial bodies with engaging visuals and structured content, offering a rich educational overview of each planet and dwarf planet. The platform invites curious learners to explore the solar system in an intuitive, user-friendly interface."
+                ghLink="https://github.com/saharshkmr/solar_system"
+                demoLink="https://saharshkmr.github.io/solar_system/"
+              />
+            </AnimatedSection>
           </Col>
-        </Row> */}
+        </Row>
       </Container>
     </Container>
   );
+}
+
+// Add global styles for animations if not already present
+const style = document.createElement('style');
+if (!document.head.querySelector('style[data-animations]')) {
+  style.setAttribute('data-animations', 'true');
+  style.textContent = `
+    .project-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+  `;
+  document.head.appendChild(style);
 }
 
 export default Projects;
